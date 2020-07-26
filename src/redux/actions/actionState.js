@@ -1,24 +1,5 @@
 import axios from "axios";
-// export const firstProduct = (search) => async (dispatch) => {
-//     try {
-//         const response = await axios.get(
-//             `https://forkify-api.herokuapp.com/api/search?q=${search}`
-//         );
-//         console.log(response.data.recipes);
-//         dispatch({ type: "FIRST_PAGE", payload: response.data.recipes });
-//     } catch (err) {
-//         console.log(err.message);
-//     }
-// };
-// const a = await axios.post(
-//                  "https://cors-anywhere.herokuapp.com/https://rental-flatmates.herokuapp.com/user/register",
-//                  {
-//                      name: "imran shaikhs",
-//                      email: "imransnehaGurav@gmail.com",
-//                      password: "1",
-//                      phone_number: "9423932373",
-//                      favourite: [],
-//                  }
+
 export const Register = ({ name, email, password }) => async (dispatch) => {
     try {
         const res = await axios.post(
@@ -62,14 +43,17 @@ export const Logout = (token) => async (dispatch) => {
         const config = {
             headers: {
                 Authorization: token,
+                "Content-Type": "application/json",
             },
-            
         };
-        console.log(token)
+        console.log(token);
         const data = await axios.post(
             "https://cors-anywhere.herokuapp.com/https://imgur-jully-test.herokuapp.com/user/logout",
+            null,
             config
         );
+
+        dispatch({ type: "LOG_OUT", payload: data.data.status });
         console.log(data.data);
     } catch (error) {
         console.log(error.message);

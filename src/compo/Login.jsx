@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { Register, Login } from "../redux/actions/actionState";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 export class Logink extends Component {
     async componentDidMount() {}
 
     handleLogin = (e) => {
         e.preventDefault();
-
         const email = e.target.email.value;
         const password = e.target.password.value;
-        // console.log(name,email,password)
         this.props.Login({ email: email, password: password });
+        alert("Login Successfully, Refresh Page to see the Changes");
     };
     render() {
-        
         console.log(this.props.login);
         return (
             <div className="container-fluid">

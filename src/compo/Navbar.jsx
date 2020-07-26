@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "./navbar.css";
 import axios from "axios";
 import { Logout } from "../redux/actions/actionState";
 import { Link, Redirect } from "react-router-dom";
@@ -12,9 +11,13 @@ class Navbar extends Component {
         console.log(pp);
         const a = this.props.Logout(pp.user);
     }
-    handleLogout = () => {
+    handleLogout = (e) => {
+        e.preventDefault();
         this.setState({ token: this.props.user });
-        alert("Logout Successfully");
+        
+        this.props.Logout(this.props.user);
+        alert("Logout Successfully, Refresh Page to see the Changes");
+        console.log(this.props.logout)
     };
 
     render() {
@@ -60,7 +63,21 @@ class Navbar extends Component {
                                     </Link>
                                 </a>
                             </li>
-                            {this.props.user.login === null ? (
+                            {this.props.user!==null  ? (
+                                <div>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="#/">
+                                            <Link
+                                                to="/"
+                                                style={{ color: "white" }}
+                                                onClick={this.handleLogout}
+                                            >
+                                                LogOut
+                                            </Link>
+                                        </a>
+                                    </li>
+                                </div>
+                            ) : (
                                 <div>
                                     <li className="nav-item">
                                         <a className="nav-link" href="#/">
@@ -79,20 +96,6 @@ class Navbar extends Component {
                                                 style={{ color: "white" }}
                                             >
                                                 Sign In
-                                            </Link>
-                                        </a>
-                                    </li>
-                                </div>
-                            ) : (
-                                <div>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#/">
-                                            <Link
-                                                to="/login"
-                                                style={{ color: "white" }}
-                                                onClick={this.handleLogout}
-                                            >
-                                                LogOut
                                             </Link>
                                         </a>
                                     </li>
@@ -121,6 +124,7 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.login,
+        logout:state.logout
     };
 };
 export default connect(mapStateToProps, { Logout })(Navbar);

@@ -25,8 +25,7 @@ const NewAddPost = (props) => {
         const config = {
             headers: {
                 "content-type": "multipart/form-data",
-                Authorization:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTk1Njg1NDYyLCJleHAiOjE1OTU2ODkwNjJ9.TJ01VTRwCjt3BJ3YvAkd_KeJa90PbmIiGk7BZWxcyO0",
+                Authorization: props.user,
             },
         };
         axios
@@ -45,9 +44,11 @@ const NewAddPost = (props) => {
             });
     };
     console.log(props.user);
-    
+
     return props.user === null ? (
-        <Redirect to="/" />
+        <div>
+            <h1>Log in first to create Post</h1>
+        </div>
     ) : (
         <div className="container">
             <h3>Add Your New Pic with Attension Title</h3>
